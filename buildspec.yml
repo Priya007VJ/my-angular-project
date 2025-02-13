@@ -18,8 +18,8 @@ phases:
       - aws ecr get-login-password --region us-east-1
       - docker push 205555772354.dkr.ecr.us-east-1.amazonaws.com/angular-repo:latest
 artifacts:
-  base-directory: dist/my-angular-project
   files:
-     - dist/my-angular-project/**/*
-     - appspec.yml
-     - deploy-scripts/**/*
+    - dist/my-angular-project/**/*    # Adjust paths to match your directory structure
+    - appspec.yml
+    - deploy-scripts/**/*
+
