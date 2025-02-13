@@ -4,18 +4,21 @@ phases:
     runtime-versions:
       nodejs: 20
     commands:
-      - npm install -g @angular/cli@17
+      - npm install -g @angular/cli@17	
   pre_build:
     commands:
       - npm install
   build:
     commands:
-      - ng build -c production
-    finally:
-      - echo This is the finally block execution!
+      - ng build --configuration production
+      - docker build -t angular-repo:latest .
+      - docker tag angular-repo:latest 225870087972.dkr.ecr.us-east-1.amazonaws.com/angualar-repo:latest
+  post_build:
+    commands:
+      - $(aws ecr get-login --no-include-email --region us-east-1)
+      - docker push 225870087972.dkr.ecr.us-east-1.amazonaws.com/angualar-repo:latest
 artifacts:
-  files:
-    - dist/my-angular-project/**/*
+  base-directory: dist/my-angular-project
   files:
      - 'dist/my-angular-project/**/*'
      - appspec.yml
