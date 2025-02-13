@@ -15,7 +15,7 @@ phases:
       - docker tag angular-repo:latest 225870087972.dkr.ecr.us-east-1.amazonaws.com/angualar-repo:latest
   post_build:
     commands:
-      - $(aws ecr get-login --no-include-email --region us-east-1)
+      - $(aws ecr get-login-password --region us-east-1)
       - docker push 225870087972.dkr.ecr.us-east-1.amazonaws.com/angualar-repo:latest
 artifacts:
   base-directory: dist/my-angular-project
